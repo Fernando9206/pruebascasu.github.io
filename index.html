@@ -398,6 +398,8 @@
             position: relative;
             cursor: pointer;
             will-change: transform;
+            /* Dynamic transform-origin set by JS based on card position in grid */
+            transform-origin: var(--card-ox, center) var(--card-oy, center);
         }
 
         /* Clip card image and body without blocking the card's scale */
@@ -413,7 +415,7 @@
         /* Desktop hover — only on true pointer/mouse devices */
         @media (hover: hover) and (pointer: fine) {
             .menu-card:hover {
-                transform: scale(1.8) translateY(-8px);
+                transform: scale(1.55);
                 box-shadow: 0 24px 64px rgba(0, 0, 0, .7), 0 0 0 2px rgba(249, 115, 22, .6);
                 border-color: rgba(249, 115, 22, .7);
                 z-index: 10;
@@ -1959,7 +1961,74 @@
                 const card = buildCard(p, idx);
                 menuGrid.appendChild(card);
             });
+
+            // After cards are in the DOM, calculate their position-based transform-origin
+            // Use requestAnimationFrame to ensure layout has been calculated
+            requestAnimationFrame(() => positionCards());
         }
+
+        /* ════════════════════════════════════
+           SMART CARD POSITIONING
+           Sets transform-origin per card so hover-scale always
+           expands toward the center and never clips outside the viewport.
+        ════════════════════════════════════ */
+        function positionCards() {
+            const cards = menuGrid.querySelectorAll('.menu-card');
+            if (!cards.length) return;
+
+            const gridRect = menuGrid.getBoundingClientRect();
+            const vw = window.innerWidth;
+            const vh = window.innerHeight;
+
+            cards.forEach(card => {
+                const r = card.getBoundingClientRect();
+                const cardW = r.width;
+                const cardH = r.height;
+
+                // -- Horizontal origin --
+                // Distance from card left edge to grid left edge
+                const distLeft = r.left - gridRect.left;
+                // Distance from card right edge to grid right edge
+                const distRight = gridRect.right - r.right;
+
+                let ox;
+                if (distLeft < cardW * 0.6) {
+                    // Card is at or near left edge → expand to the right
+                    ox = 'left';
+                } else if (distRight < cardW * 0.6) {
+                    // Card is at or near right edge → expand to the left
+                    ox = 'right';
+                } else {
+                    ox = 'center';
+                }
+
+                // -- Vertical origin --
+                // If card is in the first row, expand downward
+                // Use absolute position relative to viewport
+                const distTop = r.top;          // from viewport top
+                const distBottom = vh - r.bottom;  // from viewport bottom
+
+                let oy;
+                if (distTop < cardH * 1.2) {
+                    // Near top of viewport → expand downward
+                    oy = 'top';
+                } else if (distBottom < cardH * 1.2) {
+                    // Near bottom of viewport → expand upward
+                    oy = 'bottom';
+                } else {
+                    oy = 'center';
+                }
+
+                card.style.setProperty('--card-ox', ox);
+                card.style.setProperty('--card-oy', oy);
+            });
+        }
+
+        // Recalculate on window resize (grid columns can change)
+        window.addEventListener('resize', () => {
+            clearTimeout(window._positionTimer);
+            window._positionTimer = setTimeout(() => positionCards(), 120);
+        });
 
         /* ════════════════════════════════════
            BUILD CARD
