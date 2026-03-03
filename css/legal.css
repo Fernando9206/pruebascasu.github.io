@@ -1,0 +1,281 @@
+/* ═══════════════════════════════════════
+   LEGAL PAGES — Shared CSS
+   privacidad.html · terminos.html · aviso-legal.html
+═══════════════════════════════════════ */
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+    --bg:      #0b1318;
+    --surface: #121d24;
+    --card:    #182028;
+    --border:  #243040;
+    --teal:    #1bc4c0;
+    --orange:  #f97316;
+    --yellow:  #fbbf24;
+    --green:   #34d399;
+    --text:    #f1f5f9;
+    --muted:   #8da8b8;
+    --radius:  1rem;
+    --trans:   .22s cubic-bezier(.4,0,.2,1);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+    font-family: 'Outfit', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    line-height: 1.7;
+}
+
+/* ── PAGE WRAPPER ── */
+.legal-page {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 0 1.25rem 4rem;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* ── HEADER ── */
+.legal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.25rem 0;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 2.5rem;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: .4rem;
+    color: var(--teal);
+    text-decoration: none;
+    font-size: .88rem;
+    font-weight: 700;
+    background: rgba(27,196,192,.08);
+    border: 1px solid rgba(27,196,192,.2);
+    border-radius: 2rem;
+    padding: .35rem .9rem;
+    transition: all var(--trans);
+}
+.back-btn:hover {
+    background: rgba(27,196,192,.18);
+    border-color: var(--teal);
+}
+
+.legal-brand {
+    display: flex;
+    align-items: center;
+    gap: .55rem;
+    font-size: .95rem;
+    font-weight: 600;
+    color: var(--muted);
+}
+.legal-brand img {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--border);
+}
+.legal-brand strong { color: var(--orange); }
+
+/* ── CONTENT ── */
+.legal-content {
+    flex: 1;
+}
+
+.legal-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: .4rem;
+    background: rgba(249,115,22,.1);
+    border: 1px solid rgba(249,115,22,.25);
+    color: var(--orange);
+    font-size: .75rem;
+    font-weight: 800;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    padding: .3rem .8rem;
+    border-radius: 2rem;
+    margin-bottom: 1rem;
+}
+
+.legal-content h1 {
+    font-size: 2rem;
+    font-weight: 900;
+    line-height: 1.15;
+    margin-bottom: .5rem;
+    background: linear-gradient(135deg, var(--text) 40%, var(--muted));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.legal-updated {
+    font-size: .8rem;
+    color: var(--muted);
+    font-weight: 600;
+    margin-bottom: 1.8rem;
+}
+
+.legal-content > p {
+    color: rgba(241,245,249,.8);
+    margin-bottom: 1.5rem;
+}
+
+/* ── SECTIONS ── */
+.legal-content section {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.5rem 1.6rem;
+    margin-bottom: 1.25rem;
+}
+
+.legal-content h2 {
+    font-size: 1rem;
+    font-weight: 800;
+    color: var(--teal);
+    margin-bottom: .85rem;
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+}
+.legal-content h2::before {
+    content: '';
+    display: block;
+    width: 3px;
+    height: 1em;
+    background: var(--teal);
+    border-radius: 2px;
+}
+
+.legal-content p {
+    color: rgba(241,245,249,.75);
+    margin-bottom: .75rem;
+    font-size: .95rem;
+}
+.legal-content p:last-child { margin-bottom: 0; }
+
+.legal-content ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: .4rem;
+    margin-bottom: .75rem;
+}
+.legal-content ul li {
+    font-size: .92rem;
+    color: rgba(241,245,249,.75);
+    padding-left: 1.2rem;
+    position: relative;
+}
+.legal-content ul li::before {
+    content: '›';
+    position: absolute;
+    left: 0;
+    color: var(--orange);
+    font-weight: 800;
+}
+
+.highlight {
+    background: rgba(52,211,153,.07);
+    border: 1px solid rgba(52,211,153,.2);
+    border-radius: .6rem;
+    padding: .7rem 1rem !important;
+    color: var(--green) !important;
+    font-weight: 600;
+    font-size: .9rem !important;
+}
+
+/* ── CONTACT BLOCK ── */
+.contact-block {
+    display: flex;
+    flex-direction: column;
+    gap: .4rem;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: .6rem;
+    padding: .8rem 1rem;
+    font-size: .9rem;
+    color: var(--muted);
+    margin-top: .5rem;
+}
+
+/* ── RELATED DOCS ── */
+.related-docs {
+    display: flex;
+    gap: .75rem;
+    flex-wrap: wrap;
+    margin-top: .5rem;
+}
+.doc-link {
+    display: inline-flex;
+    align-items: center;
+    gap: .4rem;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: .6rem;
+    padding: .5rem 1rem;
+    color: var(--teal);
+    font-size: .88rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all var(--trans);
+}
+.doc-link:hover {
+    border-color: var(--teal);
+    background: rgba(27,196,192,.08);
+}
+
+/* ── FOOTER ── */
+.legal-footer {
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: .75rem;
+    text-align: center;
+}
+.legal-links {
+    display: flex;
+    gap: 1.2rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.legal-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: .8rem;
+    font-weight: 600;
+    transition: color var(--trans);
+}
+.legal-links a:hover { color: var(--teal); }
+
+.legal-footer p {
+    font-size: .75rem;
+    color: rgba(141,168,184,.5);
+}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 560px) {
+    .legal-content h1 { font-size: 1.5rem; }
+    .legal-content section { padding: 1.1rem 1rem; }
+    .legal-header { flex-direction: row; }
+}
